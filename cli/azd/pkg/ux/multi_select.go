@@ -283,8 +283,10 @@ func (p *MultiSelect) renderOptions(printer Printer, indent string) {
 
 	if start > 0 {
 		if start >= 9 {
+			//printer.Fprintf("  ...\n")
 			printer.Fprintf("%s  ...\n", indent)
 		} else {
+			//printer.Fprintf("  ...\n")
 			printer.Fprintf("%s  ...\n", indent)
 		}
 	}
@@ -326,22 +328,25 @@ func (p *MultiSelect) renderOptions(printer Printer, indent string) {
 
 			printer.Fprintf("%s%s %s%s%s %s%s\n",
 				indent,
-				color.CyanString(prefix),
-				color.CyanString("["),
-				color.CyanString(checkbox),
-				color.CyanString("]"),
-				color.CyanString(digitPrefix),
-				color.CyanString(displayValue),
+				color.HiBlueString(prefix),
+				color.HiBlueString("["),
+				color.HiBlueString(checkbox),
+				color.HiBlueString("]"),
+				color.HiBlueString(digitPrefix),
+				color.HiBlueString(displayValue),
 			)
 		} else {
+			//printer.Fprintf("%s [%s] %s%s\n", prefix, checkbox, digitPrefix, displayValue)
 			printer.Fprintf("%s%s [%s] %s%s\n", indent, prefix, checkbox, digitPrefix, displayValue)
 		}
 	}
 
 	if end < filteredOptionsCount {
 		if end >= 10 {
+			//printer.Fprintf(" ...\n")
 			printer.Fprintf("%s ...\n", indent)
 		} else {
+			//printer.Fprintf("  ...\n")
 			printer.Fprintf("%s  ...\n", indent)
 		}
 	}
@@ -382,7 +387,7 @@ func (p *MultiSelect) renderValidation(printer Printer) {
 }
 
 func (p *MultiSelect) renderMessage(printer Printer) {
-	printer.Fprintf(color.CyanString("? "))
+	printer.Fprintf(color.HiBlueString("? "))
 
 	// Message
 	printer.Fprintf(BoldString("%s: ", p.options.Message))
@@ -401,19 +406,19 @@ func (p *MultiSelect) renderMessage(printer Printer) {
 		}
 
 		rawValue := strings.Join(selectionValues, ", ")
-		printer.Fprintf(color.CyanString(rawValue))
+		printer.Fprintf(color.HiBlueString(rawValue)) //I tried it out with gray, I think blue is the better option
 	}
 
 	printer.Fprintln()
 
 	// Filter
 	if !p.cancelled && !p.complete && *p.options.EnableFiltering {
-		printer.Fprintln()
+		// printer.Fprintln()
 		printer.Fprintf("  Filter: ")
 
 		if p.filter == "" {
 			p.cursorPosition = Ptr(printer.CursorPosition())
-			printer.Fprintf(color.HiBlackString("Type to filter list"))
+			//printer.Fprintf(color.HiBlackString("Type to filter list"))
 		} else {
 			printer.Fprintf(p.filter)
 			p.cursorPosition = Ptr(printer.CursorPosition())
@@ -460,7 +465,7 @@ func (p *MultiSelect) renderFooter(printer Printer) {
 	}
 
 	printer.Fprintln()
-	printer.Fprintln(color.HiBlackString("───────────────────────────────────"))
-	printer.Fprintln(color.HiBlackString("Use ↑/↓ to move, <space> to select"))
-	printer.Fprintln(color.HiBlackString("Use <enter> to submit, <?> for help"))
+	//printer.Fprintln(color.HiBlackString("───────────────────────────────────"))
+	printer.Fprintln(color.HiBlackString("Use arrows to move, space to select, Type to filter list, <?> for help"))
+	//printer.Fprintln(color.HiBlackString("Use <enter> to submit,))
 }
